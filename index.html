@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Document</title>
+  <style>
+    body { background: #ffffff; margin: 0; padding: 50px; display: flex; justify-content: center; align-items: center; height: 50vh; }
+    .wrap { width: 100%; max-width: 600px; display: flex; gap: 10px; }
+    input { flex: 1; border: none; border-bottom: 1px solid #ccc; padding: 10px; font-size: 16px; outline: none; }
+    input:focus { border-bottom: 1px solid #333; }
+    button { background: none; border: none; color: #666; cursor: pointer; font-size: 14px; padding: 10px; }
+    button:hover { color: #000; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <input type="text" id="target" placeholder="" autocomplete="off" onkeydown="if(event.keyCode==13)process()">
+    <button onclick="process()">Go</button>
+  </div>
+  <script>
+    function process() {
+      let input = document.getElementById('target').value.trim();
+      if(!input) return;
+      if (!input.startsWith('http')) input = 'https://' + input;
+      let encoded = btoa(unescape(encodeURIComponent(input))).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+      window.location.search = '?' + encoded;
+    }
+  </script>
+</body>
+</html>
